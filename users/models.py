@@ -20,7 +20,7 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
     default_company = models.ForeignKey('company_service.Company', on_delete=models.SET_NULL, null=True)
     groups = models.ManyToManyField(
         Group,
-        help_text=_('Please select only one group.')
+        help_text=_('Please select only one group.'),
     )
 
     objects = UserManager()
