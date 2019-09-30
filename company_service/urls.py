@@ -36,6 +36,9 @@ production_order_router = routers.NestedSimpleRouter(companies_router, 'producti
 production_order_router.register('production_events', views.ProductionEventViewSet, base_name='companies-production_orders-production_events')
 
 collectors_router = routers.NestedSimpleRouter(companies_router, 'collectors', lookup='collectors')
+collectors_router.register('stop_notifications', views.StopNotificationViewSet, base_name='companies-collectors-stop_notifications')
+collectors_router.register('rework_notifications', views.ReworkNotificationViewSet, base_name='companies-collectors-rework_notifications')
+collectors_router.register('waste_notifications', views.WasteNotificationViewSet, base_name='companies-collectors-waste_notifications')
 collectors_router.register('channels', views.ChannelViewSet, base_name='companies-collectors-channels')
 
 swagger_view = get_schema_view(

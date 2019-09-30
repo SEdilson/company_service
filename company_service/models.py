@@ -272,3 +272,18 @@ class ProductionEvent(IndexedTimeStampedModel):
 
     waste_code = models.ForeignKey(WasteCode, on_delete=models.SET_NULL, null=True, blank=True)
     rework_code = models.ForeignKey(ReworkCode, on_delete=models.SET_NULL, null=True, blank=True)
+
+class StopNotification(IndexedTimeStampedModel):
+    stop_code = models.ForeignKey(StopCode, on_delete=models.SET_NULL, null=True, blank=True)
+    collector = models.ForeignKey(Collector, on_delete=models.SET_NULL, null=True, blank=True)
+    segmented_quantity = models.IntegerField()
+
+class ReworkNotification(IndexedTimeStampedModel):
+    rework_code = models.ForeignKey(ReworkCode, on_delete=models.SET_NULL, null=True, blank=True)
+    collector = models.ForeignKey(Collector, on_delete=models.SET_NULL, null=True, blank=True)
+    segmented_quantity = models.IntegerField()
+
+class WasteNotification(IndexedTimeStampedModel):
+    waste_code = models.ForeignKey(WasteCode, on_delete=models.SET_NULL, null=True, blank=True)
+    collector = models.ForeignKey(Collector, on_delete=models.SET_NULL, null=True, blank=True)
+    segmented_quantity = models.IntegerField()

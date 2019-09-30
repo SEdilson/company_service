@@ -125,8 +125,8 @@ class StopCodeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return models.StopCode \
-            .filter(code_group__company__user=self.request.user, code_group=self.kwargs['code_groups_pk']) \
             .objects \
+            .filter(code_group__company__user=self.request.user, code_group=self.kwargs['code_groups_pk']) \
             .order_by('-created')
 
     def perform_create(self, serializer):
@@ -244,3 +244,64 @@ class ChannelViewSet(viewsets.ModelViewSet):
                 pk=self.kwargs['collectors_pk']
             )
         serializer.save(collector=collector)
+
+class StopNotificationViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, JWTAuthentication, )
+    permission_classes = (IsAuthenticated, )
+    serializer_class = serializers.StopNotificationSerializer
+
+    def get_queryset(self):
+        return models.StopNotification \
+            .objects \
+            .filter(collector__company__user=self.request.user, collector=self.kwargs['collectors_pk']) \
+            .order_by('-created')
+    
+    def perform_create(self, serializer):
+        collector = models.Collector \
+            .objects \
+            .get(
+                company__user=self.request.user,
+                pk=self.kwargs['collectors_pk']
+            )
+        serializer.save(collector=collector)
+
+class ReworkNotificationViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, JWTAuthentication, )
+    permission_classes = (IsAuthenticated, )
+    serializer_class = serializers.ReworkNotificationSerializer
+
+    def get_queryset(self):
+        return models.ReworkNotification \
+            .objects \
+            .filter(collector__company__user=self.request.user, collector=self.kwargs['collectors_pk']) \
+            .order_by('-created')
+
+    def perform_create(self, serializer):
+        collector = models.Collector \
+            .objects \
+            .get(
+                company__user=self.request.user,
+                pk=self.kwargs['collectors_pk']
+            )
+        serializer.save(collector=collector)
+
+class WasteNotificationViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, JWTAuthentication, )
+    permission_classes = (IsAuthenticated, )
+    serializer_class = serializers.WasteNotificationSerializer
+
+    def get_queryset(self):
+        return models.WasteNotification \
+            .objects \
+            .filter(collector__company__user=self.request.user, collector=self.kwargs['collectors_pk']) \
+            .order_by('-created')
+    
+    def perform_create(self, serializer):
+        collector = models.Collector \
+            .objects \
+            .get(
+                company__user=self.request.user,
+                pk=self.kwargs['collectors_pk']
+            )
+        serializer.save(collector=collector)
+    
