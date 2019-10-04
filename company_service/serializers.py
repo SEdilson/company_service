@@ -145,6 +145,8 @@ class CodeGroupSerializer(serializers.HyperlinkedModelSerializer):
 class StopCodeSerializer(serializers.HyperlinkedModelSerializer):
     code_group = CodeGroupSerializer(read_only=True)
 
+    company_id = serializers.IntegerField(required=True)
+
     class Meta:
         model = StopCode
         fields = (
@@ -160,6 +162,7 @@ class StopCodeSerializer(serializers.HyperlinkedModelSerializer):
 class WasteCodeSerializer(serializers.HyperlinkedModelSerializer):
     code_group = CodeGroupSerializer(read_only=True)
 
+    company_id = serializers.IntegerField(required=True)
     class Meta:
         model = WasteCode
         fields = (
@@ -174,6 +177,7 @@ class WasteCodeSerializer(serializers.HyperlinkedModelSerializer):
 class ReworkCodeSerializer(serializers.HyperlinkedModelSerializer):
     code_group = CodeGroupSerializer(read_only=True)
 
+    company_id = serializers.IntegerField(required=True)
     class Meta:
         model = ReworkCode
         fields = (
@@ -251,7 +255,11 @@ class ChannelSerializer(serializers.HyperlinkedModelSerializer):
 
 class StopNotificationSerializer(serializers.HyperlinkedModelSerializer):
     stop_code = StopCodeSerializer(read_only=True)
+    production_line = ProductionLineSerializer(read_only=True)
+    production_order = ProductionOrderSerializer(read_only=True)
     
+    production_line_id = serializers.IntegerField(required=True)
+    production_order_id = serializers.IntegerField(required=True)
     stop_code_id = serializers.IntegerField(required=True)
     collector_id = serializers.IntegerField(required=False)
 
@@ -263,13 +271,21 @@ class StopNotificationSerializer(serializers.HyperlinkedModelSerializer):
             'modified',
             'stop_code',
             'stop_code_id',
+            'production_line',
+            'production_line_id',
+            'production_order',
+            'production_order_id',
             'collector_id',
             'segmented_quantity',
         )
 
 class ReworkNotificationSerializer(serializers.HyperlinkedModelSerializer):
     rework_code = ReworkCodeSerializer(read_only=True)
+    production_line = ProductionLineSerializer(read_only=True)
+    production_order = ProductionOrderSerializer(read_only=True)
 
+    production_line_id = serializers.IntegerField(required=True)
+    production_order_id = serializers.IntegerField(required=True)
     rework_code_id = serializers.IntegerField(required=True)
     collector_id = serializers.IntegerField(required=False)
 
@@ -281,13 +297,21 @@ class ReworkNotificationSerializer(serializers.HyperlinkedModelSerializer):
             'modified',
             'rework_code',
             'rework_code_id',
+            'production_line',
+            'production_line_id',
+            'production_order',
+            'production_order_id',
             'collector_id',
             'segmented_quantity',
         )
 
 class WasteNotificationSerializer(serializers.HyperlinkedModelSerializer):
     waste_code = WasteCodeSerializer(read_only=True)
+    production_line = ProductionLineSerializer(read_only=True)
+    production_order = ProductionOrderSerializer(read_only=True)
 
+    production_line_id = serializers.IntegerField(required=True)
+    production_order_id = serializers.IntegerField(required=True)
     waste_code_id = serializers.IntegerField(required=True)
     collector_id = serializers.IntegerField(required=False)
 
@@ -299,6 +323,10 @@ class WasteNotificationSerializer(serializers.HyperlinkedModelSerializer):
             'modified',
             'waste_code',
             'waste_code_id',
+            'production_line',
+            'production_line_id',
+            'production_order',
+            'production_order_id',
             'collector_id',
             'segmented_quantity',
         )

@@ -274,16 +274,22 @@ class ProductionEvent(IndexedTimeStampedModel):
     rework_code = models.ForeignKey(ReworkCode, on_delete=models.SET_NULL, null=True, blank=True)
 
 class StopNotification(IndexedTimeStampedModel):
+    production_line = models.ForeignKey(ProductionLine, on_delete=models.CASCADE, null=True)
+    production_order = models.ForeignKey(ProductionOrder, on_delete=models.SET_NULL, null=True, blank=True)
     stop_code = models.ForeignKey(StopCode, on_delete=models.SET_NULL, null=True, blank=True)
     collector = models.ForeignKey(Collector, on_delete=models.SET_NULL, null=True, blank=True)
-    segmented_quantity = models.IntegerField()
+    segmented_quantity = models.CharField(max_length=100)
 
 class ReworkNotification(IndexedTimeStampedModel):
+    production_line = models.ForeignKey(ProductionLine, on_delete=models.CASCADE, null=True)
+    production_order = models.ForeignKey(ProductionOrder, on_delete=models.SET_NULL, null=True, blank=True)
     rework_code = models.ForeignKey(ReworkCode, on_delete=models.SET_NULL, null=True, blank=True)
     collector = models.ForeignKey(Collector, on_delete=models.SET_NULL, null=True, blank=True)
-    segmented_quantity = models.IntegerField()
+    segmented_quantity = models.CharField(max_length=100)
 
 class WasteNotification(IndexedTimeStampedModel):
+    production_line = models.ForeignKey(ProductionLine, on_delete=models.CASCADE, null=True)
+    production_order = models.ForeignKey(ProductionOrder, on_delete=models.SET_NULL, null=True, blank=True)
     waste_code = models.ForeignKey(WasteCode, on_delete=models.SET_NULL, null=True, blank=True)
     collector = models.ForeignKey(Collector, on_delete=models.SET_NULL, null=True, blank=True)
-    segmented_quantity = models.IntegerField()
+    segmented_quantity = models.CharField(max_length=100)
